@@ -17,6 +17,36 @@ celery -A config beat --loglevel=info
 
 `daphne config.asgi:application` works equally well for the web process.
 
+## Docker
+
+```
+cp .env.example .env      # edit PROJECT_NAME etc. — leave DATABASE_URL/REDIS_URL unset
+docker compose up --build
+```
+
+`docker-compose.yml` runs all three processes above plus Postgres and Redis —
+`web` (daphne), `worker`, `beat`, `db`, `redis`. `DATABASE_URL` and
+`REDIS_URL` are set in the compose file to point at the `db` and `redis`
+services and override whatever is in `.env`, so you do not need to fill those
+two in yourself; everything else (`PROJECT_NAME`, `SECRET_KEY`,
+`GOOGLE_CLIENT_ID`, feature flags, ...) still comes from `.env`.
+
+Only `web` runs `migrate` on startup — `worker` and `beat` wait on `db`/`redis`
+being healthy but not on migrations being applied, so on a brand new volume
+give `web` a few seconds' head start before it matters (Celery has nothing to
+do until a task is queued, and `beat`'s own tables are what `migrate`
+creates).
+
+The image runs `collectstatic` at build time and serves through WhiteNoise, so
+there is no separate static container or volume to wire up. Rebuild
+(`docker compose up --build`) after any static asset or dependency change; a
+plain `up` reuses the last image.
+
+This is a starting point for local parity with Postgres/Redis, or as the base
+for a real deployment — it has no TLS termination, so put a reverse proxy in
+front of `web` for anything public, and see "What DEBUG=False turns on" below
+for `SECURE_PROXY_SSL_HEADER`.
+
 ## Required environment
 
 ```

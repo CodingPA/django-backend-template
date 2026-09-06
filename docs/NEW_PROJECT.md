@@ -54,6 +54,15 @@ curl http://localhost:8000/api/health/
 curl http://localhost:8000/api/config/
 ```
 
+Or run the whole stack — Postgres, Redis, web, worker, beat — with Docker
+instead of steps 4 above:
+
+```
+docker compose up --build
+```
+
+See [DEPLOYMENT.md](DEPLOYMENT.md#docker).
+
 ## 5. Add Google login
 
 1. Google Cloud console → APIs & Services → Credentials → OAuth client ID → Web
