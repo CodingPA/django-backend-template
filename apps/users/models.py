@@ -7,6 +7,28 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+# Excludes visually confusable characters (0/O, 1/I/L). Shared by user ids and
+# access codes so both read the same way over the phone or in a support ticket.
+_UNAMBIGUOUS_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+
+
+def _generate_short_id(length: int) -> str:
+    return "".join(secrets.choice(_UNAMBIGUOUS_ALPHABET) for _ in range(length))
+
+
+def generate_user_id() -> str:
+    """
+    Must stay a pure function: it runs as the `id` field's ``default``, which
+    Model.__init__ calls on every instantiation, not just on save. It also has
+    to be a module-level name so migrations can serialize it as
+    ``apps.users.models.generate_user_id``.
+
+    32^8 ~= 1.1e12 possible ids -- collision odds are ~5e-6 at 100k users, ~1
+    in 2200 at 1M. The unique constraint on the column is the guard for that
+    tail, not a pre-save existence check here.
+    """
+    return _generate_short_id(8)
+
 
 class UserManager(BaseUserManager):
     """Manager for a User keyed on email instead of username."""
@@ -42,13 +64,18 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     """
-    Email is the identifier; there is no username field.
+    Email is the identifier; there is no username field. The primary key is an
+    opaque 8-character id rather than a sequential integer, so exposing it in
+    a URL or API response doesn't reveal signup order or account count.
 
     This model must exist before the first migration is generated. Swapping
     AUTH_USER_MODEL on a populated database is painful, which is why it is here
-    from the start even though it adds no fields beyond the base.
+    from the start even though it adds little beyond the base.
     """
 
+    id = models.CharField(
+        primary_key=True, max_length=8, default=generate_user_id, editable=False
+    )
     username = None  # type: ignore[assignment]
     email = models.EmailField(_("email address"), unique=True)
 
@@ -111,8 +138,7 @@ class AccessCode(models.Model):
 
     @staticmethod
     def generate_code(length: int = 10) -> str:
-        alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # no easily confused glyphs
-        return "".join(secrets.choice(alphabet) for _ in range(length))
+        return _generate_short_id(length)
 
     @property
     def is_exhausted(self) -> bool:

@@ -81,6 +81,12 @@ GET /_allauth/browser/v1/auth/session
 
 Call on load for auth state.
 
+**`user.id` is an opaque 8-character string** (`"VW9HGKDB"`), not a number —
+type it as `string` in any hand-written or generated client. It's the primary
+key, generated from an alphabet with no visually confusable characters, so a
+URL or log line never leaks signup order or account count the way a
+sequential integer would.
+
 ## Email and password
 
 ```
