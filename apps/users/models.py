@@ -73,9 +73,7 @@ class User(AbstractUser):
     from the start even though it adds little beyond the base.
     """
 
-    id = models.CharField(
-        primary_key=True, max_length=8, default=generate_user_id, editable=False
-    )
+    id = models.CharField(primary_key=True, max_length=8, default=generate_user_id, editable=False)
     username = None  # type: ignore[assignment]
     email = models.EmailField(_("email address"), unique=True)
 

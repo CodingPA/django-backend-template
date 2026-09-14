@@ -1,0 +1,47 @@
+name: Bug report
+description: Something in the template doesn't work as documented.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps, ideally from a fresh clone.
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      placeholder: "3.12"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: services
+    attributes:
+      label: Which services were involved
+      multiple: true
+      options:
+        - SQLite (default)
+        - Postgres
+        - In-memory channel layer / eager Celery (default)
+        - Redis
+        - Docker Compose
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or traceback
+      render: shell

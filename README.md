@@ -1,5 +1,7 @@
 # Django Backend Template
 
+[![CI](https://github.com/CodingPA/django-backend-template/actions/workflows/ci.yml/badge.svg)](https://github.com/CodingPA/django-backend-template/actions/workflows/ci.yml)
+
 A reusable Django backend to clone into new projects. Google + email auth,
 WebSockets, background tasks, and feature-flagged signup — configured entirely
 through environment variables, so starting a new project means editing `.env`,
@@ -81,6 +83,8 @@ replace. Full walkthrough in [docs/NEW_PROJECT.md](docs/NEW_PROJECT.md).
 | [BACKGROUND_TASKS.md](docs/BACKGROUND_TASKS.md) | Celery, eager mode, Windows workers. |
 | [FRONTEND.md](docs/FRONTEND.md) | The contract for the Next.js repo. |
 | [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Production checklist. |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Dev setup and what to check before a PR. |
+| [SECURITY.md](SECURITY.md) | Reporting a vulnerability. |
 
 ## A few decisions worth knowing up front
 

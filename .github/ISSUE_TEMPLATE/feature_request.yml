@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest an addition or change to the template.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve
+      description: What are you unable to do today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        Remember this is a *template* — the best additions are broadly
+        useful to anyone cloning it, not specific to one downstream
+        project. See [CONTRIBUTING.md](https://github.com/CodingPA/django-backend-template/blob/main/CONTRIBUTING.md#scope).
