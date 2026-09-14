@@ -19,7 +19,7 @@ These are the entire "rename the project" step. The Python package stays
 
 | Variable | Default | Notes |
 | --- | --- | --- |
-| `DEBUG` | `True` | Off enables the hardening block at the bottom of settings. |
+| `DEBUG` | **none — required** | No default, so a deploy that forgets to set it fails at startup instead of running in debug mode. `.env.example` sets it to `True`. Off enables the hardening block at the bottom of settings. |
 | `SECRET_KEY` | insecure dev value | **Required when `DEBUG=False`** — settings raises at startup otherwise. |
 | `ALLOWED_HOSTS` | `localhost,127.0.0.1,[::1]` | Comma-separated. This API's own hostnames. |
 | `ADMIN_URL` | `admin/` | Move it off the default path in production. |

@@ -31,7 +31,10 @@ RUN useradd --create-home --uid 1000 app \
     && chown -R app:app /app
 USER app
 
-RUN python manage.py collectstatic --noinput
+# DEBUG has no default (see config/settings.py) and there is no .env in the
+# build context, so it must be supplied here for this build-time step only —
+# it is not baked into the image's runtime environment.
+RUN DEBUG=True python manage.py collectstatic --noinput
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
 CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "config.asgi:application"]

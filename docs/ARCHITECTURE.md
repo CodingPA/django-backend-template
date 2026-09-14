@@ -45,8 +45,9 @@ a zero-dependency local default**:
 | `CELERY_BROKER_URL` | `CELERY_TASK_ALWAYS_EAGER` — tasks run inline | Real worker |
 | `EMAIL_BACKEND` | Console — mail prints to the terminal | SMTP |
 
-So `git clone && uv sync && manage.py migrate && manage.py runserver` gives a
-working backend with **no Docker, no Redis, and no Postgres installed**. A
+So `git clone && uv sync && cp .env.example .env && manage.py migrate &&
+manage.py runserver` gives a working backend with **no Docker, no Redis, and
+no Postgres installed**. A
 template that needs three services running before it boots is a template nobody
 uses.
 

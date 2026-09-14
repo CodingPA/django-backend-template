@@ -8,10 +8,14 @@ default when its URL is unset:
     DATABASE_URL unset -> SQLite file
     REDIS_URL    unset -> in-memory channel layer + eager Celery
 
-So a fresh clone runs with `manage.py runserver` and nothing else installed.
-See docs/CONFIGURATION.md for the full variable reference.
+DEBUG has no default: it must come from `.env` (copy `.env.example`) or the
+environment, so a deploy that forgets to configure anything fails at startup
+instead of silently running in debug mode. The one exception is `pytest`,
+which defaults to DEBUG=True so the test suite runs on a bare clone. See
+docs/CONFIGURATION.md for the full variable reference.
 """
 
+import sys
 from pathlib import Path
 
 import environ
@@ -35,7 +39,15 @@ PROJECT_DESCRIPTION = env("PROJECT_DESCRIPTION", default="")
 # --------------------------------------------------------------------------
 # Core
 # --------------------------------------------------------------------------
-DEBUG = env.bool("DEBUG", default=True)
+try:
+    DEBUG = env.bool("DEBUG", default=True if "pytest" in sys.modules else env.NOTSET)
+except ImproperlyConfigured:
+    raise ImproperlyConfigured(
+        "DEBUG must be set explicitly -- there is no default. Copy "
+        ".env.example to .env (DEBUG=True there), or set DEBUG=False plus "
+        "SECRET_KEY, ALLOWED_HOSTS, FRONTEND_URL and COOKIE_DOMAIN in "
+        "production. See docs/CONFIGURATION.md."
+    ) from None
 SECRET_KEY = env("SECRET_KEY", default="dev-insecure-key-change-me" if DEBUG else "")
 if not DEBUG and not SECRET_KEY:
     raise ImproperlyConfigured(
