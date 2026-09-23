@@ -51,6 +51,21 @@ curl http://localhost:8000/api/config/
 | `/api/schema/` | OpenAPI schema |
 | `/_allauth/openapi.html` | Auth endpoint reference |
 
+## Docker
+
+For local parity with Postgres and Redis, or as a base for a real deployment:
+
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+That builds the image and starts Postgres, Redis, the web server, a Celery
+worker, and beat — `docker-compose.yml`, `Dockerfile`, and
+`docker/entrypoint.sh` are all included. See
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the production checklist (TLS,
+`DEBUG=False`, the rest of the environment variables).
+
 ## Using it for a new project
 
 ```bash
@@ -82,7 +97,7 @@ replace. Full walkthrough in [docs/NEW_PROJECT.md](docs/NEW_PROJECT.md).
 | [WEBSOCKETS.md](docs/WEBSOCKETS.md) | Channels, consumers, closing revoked sockets. |
 | [BACKGROUND_TASKS.md](docs/BACKGROUND_TASKS.md) | Celery, eager mode, Windows workers. |
 | [FRONTEND.md](docs/FRONTEND.md) | The contract for the Next.js repo. |
-| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Production checklist. |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Production checklist, Docker included. |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Dev setup and what to check before a PR. |
 | [SECURITY.md](SECURITY.md) | Reporting a vulnerability. |
 
