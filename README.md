@@ -7,7 +7,10 @@ WebSockets, background tasks, and feature-flagged signup — configured entirely
 through environment variables, so starting a new project means editing `.env`,
 not renaming Python modules.
 
-Pairs with a separate Next.js frontend repository.
+Pairs with **[next-js-template](https://github.com/CodingPA/next-js-template)**,
+the matching Next.js frontend: login and signup pages, CSRF-aware `fetch`, and a
+WebSocket helper already wired to this API. The two are meant to be used
+together.
 
 ## What is in it
 
@@ -50,6 +53,12 @@ curl http://localhost:8000/api/config/
 | `/api/docs/` | API reference |
 | `/api/schema/` | OpenAPI schema |
 | `/_allauth/openapi.html` | Auth endpoint reference |
+
+To log in through a UI, run
+[next-js-template](https://github.com/CodingPA/next-js-template) alongside. It
+expects this API at `http://localhost:8000` and serves on
+`http://localhost:3000`, which is already this project's default
+`FRONTEND_URL`, so the two line up with no extra configuration.
 
 ## Docker
 

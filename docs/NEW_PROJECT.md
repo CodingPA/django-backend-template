@@ -95,9 +95,11 @@ Keep reading [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## 7. Wire up the frontend
 
-Hand [FRONTEND.md](FRONTEND.md) to whoever is building the Next.js app. It has
+Start the Next.js app from
+[next-js-template](https://github.com/CodingPA/next-js-template), which already
+talks to this backend. [FRONTEND.md](FRONTEND.md) is the contract it follows —
 the endpoints, the cookie and CSRF rules, the error codes, and the WebSocket
-close codes.
+close codes — so hand it to whoever is extending the frontend.
 
 ## What you should **not** need to change
 

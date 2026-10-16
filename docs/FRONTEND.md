@@ -1,6 +1,11 @@
 # Frontend contract
 
-For the separate Next.js repository.
+For the Next.js frontend.
+[next-js-template](https://github.com/CodingPA/next-js-template) already
+implements the login, signup, and WebSocket parts of this contract, so start
+from it rather than from scratch. It does not yet have the
+`/auth/password/reset/{key}` and `/auth/verify-email/{key}` pages that this
+backend's emails link to.
 
 ## Two schemas, so you do not hand-write types
 
