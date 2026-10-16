@@ -17,7 +17,7 @@ from apps.users.tests.conftest import SIGNUP_URL
 
 pytestmark = pytest.mark.django_db
 
-NEW = {"email": "verifyme@example.edu", "password": "correct-horse-battery"}
+NEW = {"email": "verifyme@example.com", "password": "correct-horse-battery"}
 
 # Note: do not add pytest-django's `settings` fixture to these tests. It unwinds
 # the override_settings decorator, and the mail simply stops being sent.

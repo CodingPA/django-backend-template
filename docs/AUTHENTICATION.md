@@ -9,12 +9,12 @@ and renders no HTML auth pages at all.
 The frontend and the API are expected to be siblings under one parent domain:
 
 ```
-chat.example.edu       Next.js
-chat-api.example.edu   this backend
+app.example.com   Next.js
+api.example.com   this backend
 ```
 
 Those are **different origins but the same site**. Different origins means CORS
-is required. Same registrable domain (`example.edu`) means a `SameSite=Lax`
+is required. Same registrable domain (`example.com`) means a `SameSite=Lax`
 cookie is still sent on requests between them. A large part of what JWT setups
 exist to work around is cookies *not* being sent — here they are.
 
@@ -64,13 +64,13 @@ backstop. See [WEBSOCKETS.md](WEBSOCKETS.md).
 ## Cookie configuration
 
 ```
-SESSION_COOKIE_DOMAIN   = .example.edu        # COOKIE_DOMAIN
+SESSION_COOKIE_DOMAIN   = .example.com        # COOKIE_DOMAIN
 SESSION_COOKIE_SAMESITE = Lax                 # COOKIE_SAMESITE
 SESSION_COOKIE_SECURE   = True                # COOKIE_SECURE (defaults to not DEBUG)
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY    = False               # the frontend must read it
-CSRF_TRUSTED_ORIGINS    = https://chat.example.edu
-CORS_ALLOWED_ORIGINS    = https://chat.example.edu
+CSRF_TRUSTED_ORIGINS    = https://app.example.com
+CORS_ALLOWED_ORIGINS    = https://app.example.com
 CORS_ALLOW_CREDENTIALS  = True
 ```
 
@@ -94,13 +94,13 @@ POST   /_allauth/browser/v1/auth/password/reset
 ### Google — a browser redirect, because OAuth requires one
 
 ```
-chat.example.edu
+app.example.com
     │  POST /_allauth/browser/v1/auth/provider/redirect
     │      {provider: "google", callback_url: "...", process: "login"}
     ▼
-chat-api.example.edu ──302──▶ accounts.google.com
-                                      │  user consents
-                                      ▼
+api.example.com ──302──▶ accounts.google.com
+                                 │  user consents
+                                 ▼
         /accounts/google/login/callback/   ← register this URI with Google
                     │  creates or finds the user, sets the session cookie
                     ▼

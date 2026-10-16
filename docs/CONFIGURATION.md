@@ -39,19 +39,19 @@ python -c "import secrets; print(secrets.token_urlsafe(64))"
 | `FRONTEND_URL` | `http://localhost:3000` | Also the base for all `HEADLESS_FRONTEND_URLS`. |
 | `CORS_ALLOWED_ORIGINS` | `[FRONTEND_URL]` | |
 | `CSRF_TRUSTED_ORIGINS` | `[FRONTEND_URL]` | |
-| `COOKIE_DOMAIN` | unset | Set to the shared parent, e.g. `.example.edu`. `check` warns if unset with `DEBUG=False`. |
+| `COOKIE_DOMAIN` | unset | Set to the shared parent, e.g. `.example.com`. `check` warns if unset with `DEBUG=False`. |
 | `COOKIE_SAMESITE` | `Lax` | |
 | `COOKIE_SECURE` | `not DEBUG` | |
 | `SESSION_COOKIE_NAME` | `<PROJECT_SLUG>_sessionid` | Distinct names let two projects share a parent domain. |
 | `SESSION_COOKIE_AGE` | 14 days | Seconds. |
 | `WEBSOCKET_ALLOWED_ORIGINS` | `CORS_ALLOWED_ORIGINS + ALLOWED_HOSTS` | Origins allowed to open a WebSocket. **Not** `ALLOWED_HOSTS` — see [WEBSOCKETS.md](WEBSOCKETS.md#why-not-allowedhostsoriginvalidator). |
 
-A production set for `chat.example.edu` + `chat-api.example.edu`:
+A production set for `app.example.com` + `api.example.com`:
 
 ```
-ALLOWED_HOSTS=chat-api.example.edu
-FRONTEND_URL=https://chat.example.edu
-COOKIE_DOMAIN=.example.edu
+ALLOWED_HOSTS=api.example.com
+FRONTEND_URL=https://app.example.com
+COOKIE_DOMAIN=.example.com
 COOKIE_SECURE=True
 ```
 
@@ -90,7 +90,7 @@ Authorised redirect URIs to register with Google:
 
 ```
 http://localhost:8000/accounts/google/login/callback/
-https://chat-api.example.edu/accounts/google/login/callback/
+https://api.example.com/accounts/google/login/callback/
 ```
 
 That is the **API** host. `check` warns (`auth.W003`) if the client ID is unset

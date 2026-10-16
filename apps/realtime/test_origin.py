@@ -2,8 +2,8 @@
 WebSocket origin validation.
 
 The trap this pins down: the handshake Origin is the *frontend's* host
-(chat.example.edu) while ALLOWED_HOSTS holds the API's own host
-(chat-api.example.edu). Wiring the socket through AllowedHostsOriginValidator
+(app.example.com) while ALLOWED_HOSTS holds the API's own host
+(api.example.com). Wiring the socket through AllowedHostsOriginValidator
 looks right and rejects every real browser connection with a 403, while
 ordinary HTTP keeps working -- so it only shows up in the browser.
 """
@@ -13,8 +13,8 @@ from channels.testing import WebsocketCommunicator
 
 from config.asgi import build_websocket_application
 
-FRONTEND = "https://chat.example.edu"
-API_HOST = "chat-api.example.edu"
+FRONTEND = "https://app.example.com"
+API_HOST = "api.example.com"
 
 CLOSE_UNAUTHENTICATED = 4401
 

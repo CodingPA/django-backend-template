@@ -26,7 +26,7 @@ from apps.users.tests.conftest import (
 
 User = get_user_model()
 
-NEW = {"email": "newcomer@example.edu", "password": "correct-horse-battery"}
+NEW = {"email": "newcomer@example.com", "password": "correct-horse-battery"}
 
 
 def post_json(client, url, payload):
@@ -63,8 +63,8 @@ def test_google_signup_blocked_when_disabled(social_request):
     request = social_request
     with context.request_context(request):
         with pytest.raises(SignupClosedException):
-            social_signup_flow.process_signup(request, make_sociallogin("newcomer@example.edu"))
-    assert not User.objects.filter(email="newcomer@example.edu").exists()
+            social_signup_flow.process_signup(request, make_sociallogin("newcomer@example.com"))
+    assert not User.objects.filter(email="newcomer@example.com").exists()
 
 
 @pytest.mark.django_db
@@ -72,8 +72,8 @@ def test_google_signup_blocked_when_disabled(social_request):
 def test_google_signup_allowed_when_enabled(social_request):
     request = social_request
     with context.request_context(request):
-        social_signup_flow.process_signup(request, make_sociallogin("newcomer@example.edu"))
-    assert User.objects.filter(email="newcomer@example.edu").exists()
+        social_signup_flow.process_signup(request, make_sociallogin("newcomer@example.com"))
+    assert User.objects.filter(email="newcomer@example.com").exists()
 
 
 @pytest.mark.django_db
@@ -134,7 +134,7 @@ def test_google_signup_rejected_without_code(social_request):
     adapter = SocialAccountAdapter()
     with context.request_context(social_request):
         with pytest.raises(ValidationError) as exc:
-            adapter.pre_social_login(social_request, make_sociallogin("newcomer@example.edu"))
+            adapter.pre_social_login(social_request, make_sociallogin("newcomer@example.com"))
     assert exc.value.code == "access_code_required"
 
 
@@ -146,7 +146,7 @@ def test_google_signup_accepts_stashed_code(rf, client, access_code):
     request.session = client.session
     adapter = SocialAccountAdapter()
     with context.request_context(request):
-        adapter.pre_social_login(request, make_sociallogin("newcomer@example.edu"))
+        adapter.pre_social_login(request, make_sociallogin("newcomer@example.com"))
 
 
 @pytest.mark.django_db

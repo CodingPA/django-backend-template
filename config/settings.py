@@ -179,7 +179,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 # Frontend origin + cookie scope
 #
 # The Next.js app and this API are expected to share a parent domain
-# (chat.example.edu / chat-api.example.edu). Same-site means a Lax session
+# (app.example.com / api.example.com). Same-site means a Lax session
 # cookie is sent on API calls; cross-origin means we still need CORS.
 # --------------------------------------------------------------------------
 FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:3000")

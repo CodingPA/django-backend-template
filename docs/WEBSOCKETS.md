@@ -21,8 +21,8 @@ Channels ships `AllowedHostsOriginValidator`, and almost every tutorial uses it.
 It is wrong for this deployment shape, in a way that only shows up in a browser.
 
 It validates the handshake `Origin` against `ALLOWED_HOSTS`. But `ALLOWED_HOSTS`
-holds **this API's** hostnames (`chat-api.example.edu`), while the `Origin` on
-the handshake is the **frontend's** (`chat.example.edu`). They never match, so
+holds **this API's** hostnames (`api.example.com`), while the `Origin` on
+the handshake is the **frontend's** (`app.example.com`). They never match, so
 every legitimate connection is denied with a 403 — while ordinary HTTP keeps
 working perfectly, because CORS is configured separately and correctly.
 
@@ -92,7 +92,7 @@ reconnect silently".
 The cookie rides along automatically, because the socket is same-site:
 
 ```ts
-const ws = new WebSocket("wss://chat-api.example.edu/ws/echo/")
+const ws = new WebSocket("wss://api.example.com/ws/echo/")
 ```
 
 Browsers send no custom headers on a WebSocket handshake, which is exactly why a

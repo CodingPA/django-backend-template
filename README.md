@@ -7,7 +7,10 @@ WebSockets, background tasks, and feature-flagged signup — configured entirely
 through environment variables, so starting a new project means editing `.env`,
 not renaming Python modules.
 
-Pairs with a separate Next.js frontend repository.
+Pairs with **[next-js-template](https://github.com/CodingPA/next-js-template)**,
+the matching Next.js frontend: login and signup pages, CSRF-aware `fetch`, and a
+WebSocket helper already wired to this API. The two are meant to be used
+together.
 
 ## What is in it
 
@@ -51,6 +54,12 @@ curl http://localhost:8000/api/config/
 | `/api/schema/` | OpenAPI schema |
 | `/_allauth/openapi.html` | Auth endpoint reference |
 
+To log in through a UI, run
+[next-js-template](https://github.com/CodingPA/next-js-template) alongside. It
+expects this API at `http://localhost:8000` and serves on
+`http://localhost:3000`, which is already this project's default
+`FRONTEND_URL`, so the two line up with no extra configuration.
+
 ## Docker
 
 For local parity with Postgres and Redis, or as a base for a real deployment:
@@ -77,9 +86,9 @@ cp .env.example .env
 Then edit three lines:
 
 ```
-PROJECT_NAME="Chat"
-PROJECT_SLUG=chat
-PROJECT_DESCRIPTION="Backend API for Chat"
+PROJECT_NAME="Acme"
+PROJECT_SLUG=acme
+PROJECT_DESCRIPTION="Backend API for Acme"
 ```
 
 The Django package stays `config` forever, so there is nothing to find and
@@ -104,7 +113,7 @@ replace. Full walkthrough in [docs/NEW_PROJECT.md](docs/NEW_PROJECT.md).
 ## A few decisions worth knowing up front
 
 **Session cookies, not JWT.** The frontend and API are expected to be siblings
-under one parent domain (`chat.example.edu` / `chat-api.example.edu`) — the same
+under one parent domain (`app.example.com` / `api.example.com`) — the same
 site, so the cookie is simply sent. That makes WebSocket auth free and makes
 revocation real: a session can be deleted, a JWT cannot be recalled.
 

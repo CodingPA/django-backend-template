@@ -36,7 +36,7 @@ async def test_anonymous_socket_is_rejected():
 @pytest.mark.django_db(transaction=True)
 async def test_authenticated_socket_connects_and_echoes():
     user = await database_sync_to_async(User.objects.create_user)(
-        email="ws@example.edu", password="correct-horse-battery"
+        email="ws@example.com", password="correct-horse-battery"
     )
     comm = communicator(user)
     connected, _ = await comm.connect()
@@ -56,7 +56,7 @@ async def test_authenticated_socket_connects_and_echoes():
 @pytest.mark.django_db(transaction=True)
 async def test_force_disconnect_closes_an_open_socket():
     user = await database_sync_to_async(User.objects.create_user)(
-        email="revoked@example.edu", password="correct-horse-battery"
+        email="revoked@example.com", password="correct-horse-battery"
     )
     comm = communicator(user)
     connected, _ = await comm.connect()

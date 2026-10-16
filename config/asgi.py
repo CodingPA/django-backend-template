@@ -30,8 +30,8 @@ def build_websocket_application(allowed_origins):
     it any site could do that.
 
     Note this is OriginValidator and NOT AllowedHostsOriginValidator. The
-    handshake Origin is the *frontend's* host (chat.example.edu), while
-    ALLOWED_HOSTS holds this API's host (chat-api.example.edu). Validating
+    handshake Origin is the *frontend's* host (app.example.com), while
+    ALLOWED_HOSTS holds this API's host (api.example.com). Validating
     against ALLOWED_HOSTS rejects every legitimate browser connection with a
     403 while ordinary HTTP keeps working, which is a miserable thing to debug.
     """

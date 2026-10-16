@@ -76,7 +76,7 @@ def test_banned_user_cannot_log_in(client, password_user):
     services.ban_user(password_user)
     response = client.post(
         "/_allauth/browser/v1/auth/login",
-        data='{"email": "local@example.edu", "password": "correct-horse-battery"}',
+        data='{"email": "local@example.com", "password": "correct-horse-battery"}',
         content_type="application/json",
     )
     assert response.status_code == 401

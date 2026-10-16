@@ -60,7 +60,7 @@ def test_connecting_a_provider_while_signed_in_is_not_a_collision(rf, password_u
 
 @pytest.mark.django_db
 def test_unknown_email_is_not_a_collision(rf):
-    social_login_attempt(rf, "nobody@example.edu")
+    social_login_attempt(rf, "nobody@example.com")
 
 
 # -- Email signup hitting an existing account ------------------------------
@@ -100,7 +100,7 @@ def test_email_status_reports_method_when_disclosure_is_on(client, google_user):
 @pytest.mark.django_db
 @override_settings(AUTH_DISCLOSE_ACCOUNT_EXISTENCE=True)
 def test_email_status_reports_unknown_address(client):
-    response = client.get(EMAIL_STATUS_URL, {"email": "nobody@example.edu"})
+    response = client.get(EMAIL_STATUS_URL, {"email": "nobody@example.com"})
     assert response.json() == {"exists": False, "method": None}
 
 
