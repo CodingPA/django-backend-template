@@ -77,9 +77,9 @@ cp .env.example .env
 Then edit three lines:
 
 ```
-PROJECT_NAME="Chat"
-PROJECT_SLUG=chat
-PROJECT_DESCRIPTION="Backend API for Chat"
+PROJECT_NAME="Acme"
+PROJECT_SLUG=acme
+PROJECT_DESCRIPTION="Backend API for Acme"
 ```
 
 The Django package stays `config` forever, so there is nothing to find and
@@ -104,7 +104,7 @@ replace. Full walkthrough in [docs/NEW_PROJECT.md](docs/NEW_PROJECT.md).
 ## A few decisions worth knowing up front
 
 **Session cookies, not JWT.** The frontend and API are expected to be siblings
-under one parent domain (`chat.example.edu` / `chat-api.example.edu`) — the same
+under one parent domain (`app.example.com` / `api.example.com`) — the same
 site, so the cookie is simply sent. That makes WebSocket auth free and makes
 revocation real: a session can be deleted, a JWT cannot be recalled.
 

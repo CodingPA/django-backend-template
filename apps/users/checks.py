@@ -63,7 +63,7 @@ def check_auth_configuration(app_configs, **kwargs):
             Warning(
                 "COOKIE_DOMAIN is unset, so the session cookie will not be sent "
                 "to a frontend on a sibling subdomain.",
-                hint="Set COOKIE_DOMAIN to the shared parent, e.g. '.example.edu'.",
+                hint="Set COOKIE_DOMAIN to the shared parent, e.g. '.example.com'.",
                 id="auth.W004",
             )
         )

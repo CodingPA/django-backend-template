@@ -24,7 +24,7 @@ def test_google_auto_signup_consumes_the_code_once(social_request, access_code):
     social_request.session.save()
 
     with context.request_context(social_request):
-        social_signup_flow.process_signup(social_request, make_sociallogin("newcomer@example.edu"))
+        social_signup_flow.process_signup(social_request, make_sociallogin("newcomer@example.com"))
 
     access_code.refresh_from_db()
     assert access_code.uses == 1
@@ -41,7 +41,7 @@ def test_consume_is_idempotent_within_one_request(social_request, access_code, d
     """
     access_code.max_uses = 5
     access_code.save()
-    user = django_user_model.objects.create_user(email="dup@example.edu")
+    user = django_user_model.objects.create_user(email="dup@example.com")
 
     access_codes.consume(social_request, access_code, user)
     access_codes.consume(social_request, access_code, user)
@@ -57,7 +57,7 @@ def test_unlimited_code_is_also_claimed_once_per_request(
 ):
     access_code.max_uses = 0  # unlimited
     access_code.save()
-    user = django_user_model.objects.create_user(email="unlimited@example.edu")
+    user = django_user_model.objects.create_user(email="unlimited@example.com")
 
     access_codes.consume(social_request, access_code, user)
     access_codes.consume(social_request, access_code, user)
@@ -75,7 +75,7 @@ def test_separate_requests_each_consume(access_code, rf, client, django_user_mod
     for i in range(3):
         request = rf.post("/")
         request.session = client.session
-        user = django_user_model.objects.create_user(email=f"u{i}@example.edu")
+        user = django_user_model.objects.create_user(email=f"u{i}@example.com")
         access_codes.consume(request, access_code, user)
 
     access_code.refresh_from_db()

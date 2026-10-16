@@ -30,12 +30,12 @@ cp .env.example .env
 Edit the identity block. In development this is genuinely all that is required:
 
 ```
-PROJECT_NAME="Chat"
-PROJECT_SLUG=chat
-PROJECT_DESCRIPTION="Backend API for Chat"
+PROJECT_NAME="Acme"
+PROJECT_SLUG=acme
+PROJECT_DESCRIPTION="Backend API for Acme"
 ```
 
-`PROJECT_SLUG` also names the session cookie (`chat_sessionid`), which lets two
+`PROJECT_SLUG` also names the session cookie (`acme_sessionid`), which lets two
 projects share a parent domain without colliding.
 
 ## 4. Run
@@ -70,7 +70,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md#docker).
 2. Authorised redirect URIs — the **API** host, not the frontend:
    ```
    http://localhost:8000/accounts/google/login/callback/
-   https://chat-api.example.edu/accounts/google/login/callback/
+   https://api.example.com/accounts/google/login/callback/
    ```
 3. Put the credentials in `.env`:
    ```
@@ -114,9 +114,9 @@ See [DEPLOYMENT.md](DEPLOYMENT.md). The short version:
 ```
 DEBUG=False
 SECRET_KEY=<64 random bytes>
-ALLOWED_HOSTS=chat-api.example.edu
-FRONTEND_URL=https://chat.example.edu
-COOKIE_DOMAIN=.example.edu
+ALLOWED_HOSTS=api.example.com
+FRONTEND_URL=https://app.example.com
+COOKIE_DOMAIN=.example.com
 DATABASE_URL=postgres://...
 REDIS_URL=redis://...
 ```

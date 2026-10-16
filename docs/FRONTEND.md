@@ -156,7 +156,7 @@ To tell the user *which* method an address uses before they submit anything —
 recommended, on blur of the email field:
 
 ```
-GET /api/auth/email-status/?email=someone@example.edu
+GET /api/auth/email-status/?email=someone@example.com
     200 {"exists": true, "method": "google"}   // or "password", or null
     404                                        // disclosure disabled by config
 ```
@@ -204,7 +204,7 @@ Any other close code is a normal disconnect; reconnect with backoff.
 ## Environment
 
 ```
-NEXT_PUBLIC_API_URL=https://chat-api.example.edu
+NEXT_PUBLIC_API_URL=https://api.example.com
 ```
 
 Locally, `http://localhost:8000`. Both host and API must be on the same parent

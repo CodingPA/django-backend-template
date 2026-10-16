@@ -18,14 +18,14 @@ EMAIL_STATUS_URL = "/api/auth/email-status/"
 
 @pytest.fixture
 def password_user(db):
-    user = User.objects.create_user(email="local@example.edu", password="correct-horse-battery")
+    user = User.objects.create_user(email="local@example.com", password="correct-horse-battery")
     EmailAddress.objects.create(user=user, email=user.email, primary=True, verified=True)
     return user
 
 
 @pytest.fixture
 def google_user(db):
-    user = User.objects.create_user(email="social@example.edu")
+    user = User.objects.create_user(email="social@example.com")
     EmailAddress.objects.create(user=user, email=user.email, primary=True, verified=True)
     SocialAccount.objects.create(user=user, provider="google", uid="google-uid-1")
     return user

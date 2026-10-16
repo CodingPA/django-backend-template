@@ -52,9 +52,9 @@ for `SECURE_PROXY_SSL_HEADER`.
 ```
 DEBUG=False
 SECRET_KEY=<python -c "import secrets; print(secrets.token_urlsafe(64))">
-ALLOWED_HOSTS=chat-api.example.edu
-FRONTEND_URL=https://chat.example.edu
-COOKIE_DOMAIN=.example.edu
+ALLOWED_HOSTS=api.example.com
+FRONTEND_URL=https://app.example.com
+COOKIE_DOMAIN=.example.com
 DATABASE_URL=postgres://user:pass@host:5432/dbname
 REDIS_URL=redis://host:6379/0
 GOOGLE_CLIENT_ID=...
